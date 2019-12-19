@@ -1,0 +1,93 @@
+﻿<Page
+    x:Class="ComboboxAndDataGridTest.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ComboboxAndDataGridTest"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d"
+    >
+
+    <Page.DataContext>
+        <local:UserViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button
+            Name="btnUpdate"
+            Grid.Row="0"
+            Width="141"
+            Height="35"
+            Margin="90,15,0,0"
+            VerticalAlignment="Top"
+            Command="{Binding Path=UpdateCommand}"
+            CommandParameter="{Binding Path=Userdetails}"
+            Content="Update"
+            />
+
+        <controls:DataGrid
+            x:Name="dgvEmpList"
+            Grid.Row="1"
+            AlternatingRowBackground="LightBlue"
+            AutoGenerateColumns="False"
+            GridLinesVisibility="All"
+            HeadersVisibility="Column"
+            ItemsSource="{Binding Users, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            >
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Binding="{Binding UserId}" Header="UserId" />
+                <controls:DataGridTextColumn Binding="{Binding FirstName}" Header="FirstName" />
+                <controls:DataGridTextColumn Binding="{Binding LastName}" Header="LastName" />
+                <controls:DataGridTextColumn Binding="{Binding City}" Header="City" />
+                <controls:DataGridTextColumn Binding="{Binding State}" Header="State" />
+                <controls:DataGridTextColumn Binding="{Binding Country}" Header="Country" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+
+        <TextBox
+            x:Name="txtFName"
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Width="292"
+            Height="32"
+            Margin="28,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            AcceptsReturn="True"
+            PlaceholderText="Enter FirstName ..."
+            SelectedText="{Binding SelectedUser.FirstName}"
+            Text="{Binding Userdetails.FirstName, Mode=TwoWay}"
+            TextAlignment="Left"
+            TextWrapping="Wrap"
+            />
+        <ComboBox
+            x:Name="cmbCountry"
+            Grid.Row="4"
+            Width="292"
+            Height="32"
+            Margin="28,0,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding CountryList}"
+            PlaceholderText="Select Country ..."
+            SelectedItem="{Binding CountrySelectItem,Mode=TwoWay}"   
+            >
+            
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        
+        </ComboBox>
+    </Grid>
+</Page>
