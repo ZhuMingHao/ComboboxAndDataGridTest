@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace ComboboxAndDataGridTest
@@ -122,9 +123,15 @@ namespace ComboboxAndDataGridTest
             }
 
             UpdateCommand = new RelayCommand<User>(AddUserMethod);
+           
         }
         public RelayCommand<User> UpdateCommand { get; set; }
+       
 
+        public void BtnClick(object s, RoutedEventArgs e)
+        {
+
+        }
         public void AddUserMethod(User parameter)
         {
             try
